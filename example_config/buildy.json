@@ -1,0 +1,208 @@
+{
+    "components":
+    [
+        {
+            "name": "xsdk",
+            "src": "https://github.com/MultiSight/xsdk",
+            "path": "xsdk",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "x264",
+            "src": "https://github.com/MultiSight/x264",
+            "path": "x264",
+            "cleanbuild": "~/.build_3rdparty.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "ffmpeg",
+            "src": "https://github.com/MultiSight/ffmpeg",
+            "path": "ffmpeg",
+            "cleanbuild": "~/.build_3rdparty.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "webby",
+            "src": "https://github.com/MultiSight/webby",
+            "path": "webby",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "dbcooper",
+            "src": "https://github.com/MultiSight/dbcooper",
+            "path": "dbcooper",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "argus_common",
+            "src": "https://github.com/MultiSight/argus_common",
+            "path": "argus_common",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "web_socket",
+            "src": "https://github.com/MultiSight/web_socket",
+            "path": "web_socket",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "argus_web",
+            "src": "https://github.com/MultiSight/argus_web",
+            "path": "argus_web",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "argus_tunnel",
+            "src": "https://github.com/MultiSight/argus_tunnel",
+            "path": "argus_tunnel",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "synnefo",
+            "src": "https://github.com/MultiSight/synnefo",
+            "path": "synnefo",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "mediaparser",
+            "src": "https://github.com/MultiSight/mediaparser",
+            "path": "mediaparser",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "framestore",
+            "src": "https://github.com/MultiSight/framestore/",
+            "path": "framestore/framestore",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "framestore_client",
+            "src": "https://github.com/MultiSight/framestore",
+            "path": "framestore/framestore_client",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "streamy",
+            "src": "https://github.com/MultiSight/streamy",
+            "path": "streamy",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "packets",
+            "src": "https://github.com/MultiSight/packets",
+            "path": "packets",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "shrinkwrap",
+            "src": "https://github.com/MultiSight/shrinkwrap",
+            "path": "shrinkwrap",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "mpf",
+            "src": "https://github.com/MultiSight/mpf",
+            "path": "mpf",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "avkit",
+            "src": "https://github.com/MultiSight/avkit",
+            "path": "avkit",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "source_rtsp",
+            "src": "https://github.com/MultiSight/mpf_plugins",
+            "path": "mpf_plugins/source_rtsp",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "packetizer",
+            "src": "https://github.com/MultiSight/mpf_plugins",
+            "path": "mpf_plugins/packetizer",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "sink_output",
+            "src": "https://github.com/MultiSight/mpf_plugins",
+            "path": "mpf_plugins/sink_output",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "recorder_adapter",
+            "src": "https://github.com/MultiSight/mpf_plugins",
+            "path": "mpf_plugins/recorder_adapter",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "sink_multi_sender",
+            "src": "https://github.com/MultiSight/mpf_plugins",
+            "path": "mpf_plugins/sink_multi_sender",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "sink_sqlite",
+            "src": "https://github.com/MultiSight/mpf_plugins",
+            "path": "mpf_plugins/sink_sqlite",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "transform_md_packetizer",
+            "src": "https://github.com/MultiSight/mpf_plugins",
+            "path": "mpf_plugins/transform_md_packetizer",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "transform_md_depacketizer",
+            "src": "https://github.com/MultiSight/mpf_plugins",
+            "path": "mpf_plugins/transform_md_depacketizer",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "transform_md_parser",
+            "src": "https://github.com/MultiSight/mpf_plugins",
+            "path": "mpf_plugins/transform_md_parser",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "transform_tee",
+            "src": "https://github.com/MultiSight/mpf_plugins",
+            "path": "mpf_plugins/transform_tee",
+            "cleanbuild": "~/.build_lib.sh",
+            "tags": [ "gateway", "gateway_libs" ]
+        },
+        {
+            "name": "gateway_libs",
+            "src": "https://github.com/MultiSight/gateway_libs",
+            "path": "gateway_libs",
+            "cleanbuild": "~/.build_app.sh",
+            "tags": [ "gateway", "gateway_apps" ]
+        }
+    ]
+}
