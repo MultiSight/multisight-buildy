@@ -48,6 +48,10 @@ mv "@CPACK_TOPLEVEL_DIRECTORY@/tmpBBroot" $RPM_BUILD_ROOT
 %post
 @CPACK_RPM_SPEC_POSTINSTALL@
 
+chmod 777 /usr/local/buildy/build_scripts/multisight/build_lib.sh
+chmod 777 /usr/local/buildy/build_scripts/multisight/build_3rdparty.sh
+chmod 777 /usr/local/buildy/build_scripts/multisight/build_app.sh
+
 %postun
 @CPACK_RPM_SPEC_POSTUNINSTALL@
 

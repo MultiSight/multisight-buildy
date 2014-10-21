@@ -11,7 +11,7 @@ void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag )
     list<struct Component>::iterator i;
     for( i = components.begin(); i != components.end(); i++ )
     {
-        system( XString::Format( "%s %s %s %s %s",
+        system( XString::Format( "%s %s %s %s",
                                  i->cleanbuild.c_str(),
                                  i->name.c_str(),
                                  i->src.c_str(),
