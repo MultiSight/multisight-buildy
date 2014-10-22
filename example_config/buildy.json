@@ -212,6 +212,27 @@
             "tags": [ "gateway", "gateway_apps" ]
         },
         {
+            "name": "exporty",
+            "src": "https://github.com/MultiSight/exporty",
+            "path": "exporty",
+            "cleanbuild": "/usr/local/buildy/build_scripts/multisight/build_app.sh",
+            "tags": [ "gateway", "gateway_apps" ]
+        },
+        {
+            "name": "styx",
+            "src": "https://github.com/MultiSight/styx",
+            "path": "styx",
+            "cleanbuild": "/usr/local/buildy/build_scripts/multisight/build_app.sh",
+            "tags": [ "gateway", "gateway_apps" ]
+        },
+        {
+            "name": "smarty",
+            "src": "https://github.com/MultiSight/smarty",
+            "path": "smarty",
+            "cleanbuild": "/usr/local/buildy/build_scripts/multisight/build_app.sh",
+            "tags": [ "gateway", "gateway_apps" ]
+        },
+        {
             "name": "buildy",
             "src": "https://github.com/MultiSight/buildy",
             "path": "buildy",
