@@ -57,7 +57,7 @@ void GITStatus( XRef<Config> cfg, const XSDK::XString& tag )
     {
         XString dir = GetDirectoryFromURL( i->src );
 
-        printf("status: %s\n",dir.c_str());
+        printf("status: %s\n",i->path.c_str());
         fflush(stdout);
 
         system( XString::Format( "git -C %s status --short", dir.c_str() ).c_str() );
