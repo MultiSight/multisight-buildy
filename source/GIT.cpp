@@ -60,6 +60,6 @@ void GITStatus( XRef<Config> cfg, const XSDK::XString& tag )
         printf("status: %s\n",dir.c_str());
         fflush(stdout);
 
-        system( XString::Format( "git -C %s status", dir.c_str() ).c_str() );
+        system( XString::Format( "git -C %s status --short", dir.c_str() ).c_str() );
     }
 }

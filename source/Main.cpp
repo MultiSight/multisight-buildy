@@ -41,7 +41,9 @@ int main( int argc, char* argv[] )
         }
         else if( CheckOption( options, "--build", arg ) )
         {
-            CleanBuild( cfg, arg );
+            XString arg2;
+
+            CleanBuild( cfg, arg, CheckOption( options, "--superclean", arg2 ) );
         }
     }
     catch( std::exception& ex )
