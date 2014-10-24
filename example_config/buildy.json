@@ -233,6 +233,13 @@
             "tags": [ "gateway", "gateway_apps" ]
         },
         {
+            "name": "hermes",
+            "src": "https://github.com/MultiSight/hermes",
+            "path": "hermes",
+            "cleanbuild": "/usr/local/buildy/build_scripts/multisight/build_app.sh",
+            "tags": [ "gateway", "gateway_apps" ]
+        },
+        {
             "name": "buildy",
             "src": "https://github.com/MultiSight/buildy",
             "path": "buildy",
