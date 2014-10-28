@@ -5,245 +5,196 @@
             "name": "xsdk",
             "src": "https://github.com/MultiSight/xsdk",
             "path": "xsdk",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "x264",
             "src": "https://github.com/MultiSight/x264",
             "path": "x264",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_3rdparty.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_3rdparty.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "ffmpeg",
             "src": "https://github.com/MultiSight/ffmpeg",
             "path": "ffmpeg",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_3rdparty.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_3rdparty.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "webby",
             "src": "https://github.com/MultiSight/webby",
             "path": "webby",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "dbcooper",
             "src": "https://github.com/MultiSight/dbcooper",
             "path": "dbcooper",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
-            "tags": [ "gateway", "gateway_libs" ]
-        },
-        {
-            "name": "argus_common",
-            "src": "https://github.com/MultiSight/argus_common",
-            "path": "argus_common",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
-            "tags": [ "gateway", "gateway_libs" ]
-        },
-        {
-            "name": "web_socket",
-            "src": "https://github.com/MultiSight/web_socket",
-            "path": "web_socket",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
-            "tags": [ "gateway", "gateway_libs" ]
-        },
-        {
-            "name": "argus_web",
-            "src": "https://github.com/MultiSight/argus_web",
-            "path": "argus_web",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
-            "tags": [ "gateway", "gateway_libs" ]
-        },
-        {
-            "name": "argus_tunnel",
-            "src": "https://github.com/MultiSight/argus_tunnel",
-            "path": "argus_tunnel",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
-            "tags": [ "gateway", "gateway_libs" ]
-        },
-        {
-            "name": "synnefo",
-            "src": "https://github.com/MultiSight/synnefo",
-            "path": "synnefo",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "mediaparser",
             "src": "https://github.com/MultiSight/mediaparser",
             "path": "mediaparser",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "framestore",
             "src": "https://github.com/MultiSight/framestore/",
-            "path": "framestore/framestore",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "framestore\\framestore",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "framestore_client",
             "src": "https://github.com/MultiSight/framestore",
-            "path": "framestore/framestore_client",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "framestore\\framestore_client",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "streamy",
             "src": "https://github.com/MultiSight/streamy",
             "path": "streamy",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "packets",
             "src": "https://github.com/MultiSight/packets",
             "path": "packets",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "shrinkwrap",
             "src": "https://github.com/MultiSight/shrinkwrap",
             "path": "shrinkwrap",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "mpf",
             "src": "https://github.com/MultiSight/mpf",
             "path": "mpf",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "avkit",
             "src": "https://github.com/MultiSight/avkit",
             "path": "avkit",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "source_rtsp",
             "src": "https://github.com/MultiSight/mpf_plugins",
-            "path": "mpf_plugins/source_rtsp",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "mpf_plugins\\source_rtsp",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "packetizer",
             "src": "https://github.com/MultiSight/mpf_plugins",
-            "path": "mpf_plugins/packetizer",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "mpf_plugins\\packetizer",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "sink_output",
             "src": "https://github.com/MultiSight/mpf_plugins",
-            "path": "mpf_plugins/sink_output",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "mpf_plugins\\sink_output",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "recorder_adapter",
             "src": "https://github.com/MultiSight/mpf_plugins",
-            "path": "mpf_plugins/recorder_adapter",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "mpf_plugins\\recorder_adapter",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "sink_multi_sender",
             "src": "https://github.com/MultiSight/mpf_plugins",
-            "path": "mpf_plugins/sink_multi_sender",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "mpf_plugins\\sink_multi_sender",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "sink_sqlite",
             "src": "https://github.com/MultiSight/mpf_plugins",
-            "path": "mpf_plugins/sink_sqlite",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "mpf_plugins\\sink_sqlite",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "transform_md_packetizer",
             "src": "https://github.com/MultiSight/mpf_plugins",
-            "path": "mpf_plugins/transform_md_packetizer",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "mpf_plugins\\transform_md_packetizer",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "transform_md_depacketizer",
             "src": "https://github.com/MultiSight/mpf_plugins",
-            "path": "mpf_plugins/transform_md_depacketizer",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "mpf_plugins\\transform_md_depacketizer",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "transform_md_parser",
             "src": "https://github.com/MultiSight/mpf_plugins",
-            "path": "mpf_plugins/transform_md_parser",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "mpf_plugins\\transform_md_parser",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "transform_tee",
             "src": "https://github.com/MultiSight/mpf_plugins",
-            "path": "mpf_plugins/transform_tee",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.sh",
+            "path": "mpf_plugins\\transform_tee",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_lib.bat",
             "tags": [ "gateway", "gateway_libs" ]
         },
         {
             "name": "gateway_libs",
             "src": "https://github.com/MultiSight/gateway_libs",
             "path": "gateway_libs",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.bat",
             "tags": [ "gateway", "gateway_apps" ]
         },
         {
             "name": "recorder",
             "src": "https://github.com/MultiSight/recorder",
             "path": "recorder",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.bat",
             "tags": [ "gateway", "gateway_apps" ]
         },
         {
             "name": "exporty",
             "src": "https://github.com/MultiSight/exporty",
             "path": "exporty",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.bat",
             "tags": [ "gateway", "gateway_apps" ]
         },
         {
             "name": "styx",
             "src": "https://github.com/MultiSight/styx",
             "path": "styx",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.sh",
-            "tags": [ "gateway", "gateway_apps" ]
-        },
-        {
-            "name": "smarty",
-            "src": "https://github.com/MultiSight/smarty",
-            "path": "smarty",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.sh",
-            "tags": [ "gateway", "gateway_apps" ]
-        },
-        {
-            "name": "hermes",
-            "src": "https://github.com/MultiSight/hermes",
-            "path": "hermes",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.bat",
             "tags": [ "gateway", "gateway_apps" ]
         },
         {
             "name": "buildy",
             "src": "https://github.com/MultiSight/buildy",
             "path": "buildy",
-            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.sh",
+            "cleanbuild": "C:\Program Files (x86)\buildy\build_scripts\vx\build_app.bat",
             "tags": [ "dev-tools" ]
         }
     ]
