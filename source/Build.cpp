@@ -23,6 +23,8 @@ void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool removeDevelArt
     list<struct Component>::iterator i;
     for( i = components.begin(); i != components.end(); i++ )
     {
+      printf("%s\n",i->cleanbuild.c_str());
+      fflush(stdout);
         err = system( XString::Format( "\"%s\" %s %s %s",
 				       i->cleanbuild.c_str(),
 				       i->name.c_str(),

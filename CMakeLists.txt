@@ -26,8 +26,11 @@ include("${devel_artifacts_path}/build/base_app.cmake" NO_POLICY_SCOPE)
 # Installation...
 
 install(TARGETS buildy DESTINATION buildy)
-install(FILES ${devel_artifacts_path}/lib/libXSDK.so DESTINATION buildy/libs)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/build_scripts/multisight/build_lib.sh DESTINATION buildy/build_scripts/multisight)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/build_scripts/multisight/build_3rdparty.sh DESTINATION buildy/build_scripts/multisight)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/build_scripts/multisight/build_app.sh DESTINATION buildy/build_scripts/multisight)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build_scripts DESTINATION buildy)
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/example_config DESTINATION buildy)
+
+if(CMAKE_SYSTEM MATCHES "Windows")
+install(FILES ${devel_artifacts_path}/lib/XSDK.dll DESTINATION buildy)
+elseif(CMAKE_SYSTEM MATCHES "Linux")
+install(FILES ${devel_artifacts_path}/lib/libXSDK.so DESTINATION buildy/libs)
+endif()
