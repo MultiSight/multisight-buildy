@@ -13,7 +13,7 @@ md build
 
 pushd build
 
-IF %4=="RELEASE" (
+IF "%4"=="RELEASE" (
 
   cmake -DCMAKE_BUILD_TYPE=Release .. -G"Visual Studio 12 Win64"
   if %errorlevel% neq 0 exit -1
