@@ -5,7 +5,7 @@
 using namespace XSDK;
 using namespace std;
 
-void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool removeDevelArtifacts )
+void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool release, bool removeDevelArtifacts )
 {
     int err = 0;
     if( removeDevelArtifacts )
@@ -25,11 +25,12 @@ void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool removeDevelArt
     {
       printf("%s\n",i->cleanbuild.c_str());
       fflush(stdout);
-        err = system( XString::Format( "\"%s\" %s %s %s",
+        err = system( XString::Format( "\"%s\" %s %s %s %s",
 				       i->cleanbuild.c_str(),
 				       i->name.c_str(),
 				       i->src.c_str(),
-				       i->path.c_str() ).c_str() );
+				       i->path.c_str(),
+                                       (release)?"RELEASE":"DEBUG" ).c_str() );
 	if( err < 0 )
 	  X_THROW(("Build command failure."));
     }

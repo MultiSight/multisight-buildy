@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ./build_lib.sh <name> <src> <path>
+# ./build_lib.sh <name> <src> <path> <RELEASE || DEBUG>
 
 echo "Building: $1"
 
@@ -14,11 +14,15 @@ mkdir build
 
 pushd build
 
-cmake .. -DADDITIONAL_RELATIVE_RPATH=../GatewayLibs/libs
-
-make
-
-make install
+if [ $4 = "RELEASE" ]; then
+    cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_BUILD_TYPE=Release .. -DADDITIONAL_RELATIVE_RPATH=../GatewayLibs/libs
+    cmake --build . --config Release
+    cmake --build . --target install
+else
+    cmake -DCMAKE_VERBOSE_MAKEFILE=ON .. -DADDITIONAL_RELATIVE_RPATH=../GatewayLibs/libs
+    cmake --build .
+    cmake --build . --target install
+fi
 
 popd
 

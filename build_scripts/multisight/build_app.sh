@@ -14,11 +14,15 @@ mkdir build
 
 pushd build
 
-cmake .. -DADDITIONAL_RELATIVE_RPATH=../GatewayLibs/libs
-
-make
-
-make package
+if [ $4 = "RELEASE" ]; then
+    cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_BUILD_TYPE=Release .. -DADDITIONAL_RELATIVE_RPATH=../GatewayLibs/libs
+    cmake --build . --config Release
+    cmake --build . --target package
+else
+    cmake -DCMAKE_VERBOSE_MAKEFILE=ON .. -DADDITIONAL_RELATIVE_RPATH=../GatewayLibs/libs
+    cmake --build .
+    cmake --build . --target package
+fi
 
 popd
 

@@ -6,6 +6,6 @@
 #include "XSDK/XString.h"
 #include "Config.h"
 
-void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool removeDevelArtifacts = false );
+void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool release = false, bool removeDevelArtifacts = false );
 
 #endif

@@ -43,7 +43,10 @@ int main( int argc, char* argv[] )
         {
             XString arg2;
 
-            CleanBuild( cfg, arg, CheckOption( options, "--superclean", arg2 ) );
+            CleanBuild( cfg,
+                        arg,
+                        CheckOption( options, "--release", arg2 ),
+                        CheckOption( options, "--superclean", arg2 ) );
         }
     }
     catch( std::exception& ex )
