@@ -28,7 +28,7 @@ void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool release, bool 
         err = system( XString::Format( "\"%s\" %s %s %s %s",
 				       i->cleanbuild.c_str(),
 				       i->name.c_str(),
-				       i->src.c_str(),
+                       (i->src.length() > 0) ? i->src.c_str() : "NO_SOURCE",
 				       i->path.c_str(),
                                        (release)?"RELEASE":"DEBUG" ).c_str() );
 	if( err < 0 )
