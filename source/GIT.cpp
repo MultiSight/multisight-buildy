@@ -10,7 +10,7 @@ using namespace std;
 
 void GITClone( XRef<Config> cfg, const XSDK::XString& tag )
 {
-    list<struct Component> components=(tag.length()>0) ? cfg->GetComponentsByTag(tag) : cfg->GetAllComponents();
+    list<struct Component> components=(tag.length()>0) ? cfg->GetMatchingComponents(tag) : cfg->GetAllComponents();
 
     int err = 0;
     list<struct Component>::iterator i;
@@ -37,7 +37,7 @@ void GITClone( XRef<Config> cfg, const XSDK::XString& tag )
 
 void GITPull( XRef<Config> cfg, const XSDK::XString& tag )
 {
-    list<struct Component> components=(tag.length()>0) ? cfg->GetComponentsByTag(tag) : cfg->GetAllComponents();
+    list<struct Component> components=(tag.length()>0) ? cfg->GetMatchingComponents(tag) : cfg->GetAllComponents();
 
     int err = 0;
     list<struct Component>::iterator i;
@@ -56,7 +56,7 @@ void GITPull( XRef<Config> cfg, const XSDK::XString& tag )
 
 void GITStatus( XRef<Config> cfg, const XSDK::XString& tag )
 {
-    list<struct Component> components=(tag.length()>0) ? cfg->GetComponentsByTag(tag) : cfg->GetAllComponents();
+    list<struct Component> components=(tag.length()>0) ? cfg->GetMatchingComponents(tag) : cfg->GetAllComponents();
 
     int err = 0;
     list<struct Component>::iterator i;

@@ -105,10 +105,24 @@ list<struct Component> Config::GetAllComponents()
 
 list<struct Component> Config::GetComponentsByTag( const XString& key )
 {
-    if( _tagMembers.Find( key ) == NULL )
-        X_THROW(("No tags matched key."));
+    list<struct Component> components;
 
-    return *(_tagMembers[key]);
+    if( _tagMembers.Find( key ) )
+        components = *(_tagMembers[key]);
+
+    return components;
+}
+
+list<struct Component> Config::GetMatchingComponents( const XString& arg )
+{
+    list<struct Component> matched = GetComponentsByTag( arg );
+
+    vector<struct Component>::iterator i;
+    for( i = _components.begin(); i != _components.end(); i++ )
+        if( i->name == arg )
+            matched.push_back( *i );
+
+    return matched;
 }
 
 void Config::Write( const XString& path )

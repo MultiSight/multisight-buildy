@@ -18,7 +18,7 @@ void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool release, bool 
 	  X_THROW(("Unable to remove devel_artifacts."));
     }
 
-    list<struct Component> components=(tag.length()>0) ? cfg->GetComponentsByTag(tag) : cfg->GetAllComponents();
+    list<struct Component> components=(tag.length()>0) ? cfg->GetMatchingComponents(tag) : cfg->GetAllComponents();
 
     list<struct Component>::iterator i;
     for( i = components.begin(); i != components.end(); i++ )

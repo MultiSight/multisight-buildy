@@ -30,6 +30,7 @@ public:
 
     std::list<struct Component> GetAllComponents();
     std::list<struct Component> GetComponentsByTag( const XSDK::XString& key );
+    std::list<struct Component> GetMatchingComponents( const XSDK::XString& arg );
 
     void Write( const XSDK::XString& path );
 
