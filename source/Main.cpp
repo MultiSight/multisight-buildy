@@ -15,6 +15,21 @@
 using namespace XSDK;
 using namespace std;
 
+void PrintHelp()
+{
+    printf("usage: buildy <command> <arg>\n\n");
+    printf("commands -\n");
+    printf("    --clone - Execute git clone. Applies to provided tag, project name or ALL\n");
+    printf("              if no arg provided.\n");
+    printf("    --pull - Execute git pull. Applies to provided tag, project name or ALL\n");
+    printf("             if no arg provided.\n");
+    printf("    --status - Execute git status. Applies to provided tag, project name or\n");
+    printf("               ALL if no arg provided.\n");
+    printf("    --build - cleanbuild script on each project matching tag, project name or\n");
+    printf("              ALL if no arg provided.\n");
+    exit(0);
+}
+
 int main( int argc, char* argv[] )
 {
     try
@@ -48,6 +63,7 @@ int main( int argc, char* argv[] )
                         CheckOption( options, "--release", arg2 ),
                         CheckOption( options, "--superclean", arg2 ) );
         }
+        else PrintHelp();
     }
     catch( std::exception& ex )
     {
