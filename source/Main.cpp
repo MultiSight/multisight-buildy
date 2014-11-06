@@ -54,6 +54,14 @@ int main( int argc, char* argv[] )
         {
             GITStatus( cfg, arg );
         }
+        else if( CheckOption( options, "--checkout", arg ) )
+        {
+            XString rev;
+            if( !CheckOption( options, "--revision", rev ) )
+                X_THROW(("--checkout specified without --revision!"));
+
+            GITCheckout( cfg, arg, rev );
+        }
         else if( CheckOption( options, "--build", arg ) )
         {
             XString arg2;

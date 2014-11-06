@@ -6,4 +6,6 @@
 
 XSDK::XString GetDirectoryFromURL( const XSDK::XString& url );
 
+XSDK::XString ExecAndGetOutput( const XSDK::XString& cmd );
+
 #endif

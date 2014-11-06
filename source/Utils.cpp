@@ -16,3 +16,34 @@ XString GetDirectoryFromURL( const XString& url )
 
     return dir;
 }
+
+XString ExecAndGetOutput( const XString& cmd )
+{
+    FILE* output = NULL;
+
+#ifdef IS_WINDOWS
+    output = _popen( cmd.c_str(), "rb" );
+#else
+    output = popen( cmd.c_str(), "rb" );
+#endif
+
+    if( !output )
+        X_THROW(("Unable to popen() cmd = %s",cmd.c_str()));
+
+    XString result;
+
+    while( !feof( output ) )
+    {
+        char line[4096];
+        if( fgets( &line[0], 4096, output ) != NULL )
+            result += line;
+    }
+
+#ifdef IS_WINDOWS
+    _pclose( output );
+#else
+    pclose( output );
+#endif
+
+    return result;
+}
