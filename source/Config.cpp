@@ -13,6 +13,7 @@ using namespace std;
 //        "src": "https://github.com/MultiSight/x264",
 //        "path": "x264",
 //        "rev": "f8eb7e276646f473822ba00369660491676b4be4",
+//        "branch": "2.0",
 //        "tags": [ "3rdparty", "gateway_libs" ]
 //    }
 //],
@@ -54,6 +55,7 @@ Config::Config( const XString& configPath ) :
         component.src = bc->Index( "src" )->Get<XString>();
         component.path = bc->Index( "path" )->Get<XString>();
         component.rev = (bc->HasIndex( "rev" )) ? bc->Index( "rev" )->Get<XString>() : "";
+        component.branch = (bc->HasIndex( "branch" )) ? bc->Index( "branch" )->Get<XString>() : "";
         component.cleanbuild = bc->Index( "cleanbuild" )->Get<XString>();
 
         if( bc->HasIndex( "tags" ) )
@@ -143,6 +145,8 @@ void Config::Write( const XString& path )
         doc += XString::Format( "\"path\": \"%s\", ", i->path.c_str() );
         if( i->rev.length() > 0 )
             doc += XString::Format( "\"rev\": \"%s\", ", i->rev.c_str() );
+        if( i->branch.length() > 0 )
+            doc += XString::Format( "\"branch\": \"%s\", ", i->branch.c_str() );
         if( i->tags.size() > 0 )
         {
             doc += "\"tags\": [ ";

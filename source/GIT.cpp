@@ -8,7 +8,7 @@
 using namespace XSDK;
 using namespace std;
 
-static bool _UncommittedOrUnstashedChanges( XRef<Config> cfg, const XString& tag )
+static bool _UncommittedOrUnstashedChanges( XRef<Config> cfg, const XString& tag = "" )
 {
     bool result = false;
 
@@ -23,11 +23,14 @@ static bool _UncommittedOrUnstashedChanges( XRef<Config> cfg, const XString& tag
 
             XString output = ExecAndGetOutput( XString::Format( "git -C %s status --short", dir.c_str() ) );
 
-            printf( "output.length() = %d\n",output.length() );
-            fflush(stdout);
-
             if( output.length() > 0 )
+            {
+                printf( "Found uncommited or unstashed changes in %s.\n", i->name.c_str() );
+                fflush( stdout );
+
                 result = true;
+                break;
+            }
         }
     }
 
@@ -108,16 +111,49 @@ void GITStatus( XRef<Config> cfg, const XSDK::XString& tag )
     }
 }
 
-void GITCheckout( XRef<Config> cfg, const XString& tag, const XString& rev )
+void BuildySnapshot( XRef<Config> cfg, const XString& outputFilePath )
 {
+    if( _UncommittedOrUnstashedChanges( cfg ) )
+        X_THROW(("Cannot snapshot with uncommited or unstashed changes."));
+
+    list<struct Component> components = cfg->GetAllComponents();
+
+    int err = 0;
+    list<struct Component>::iterator i;
+    for( i = components.begin(); i != components.end(); i++ )
+    {
+        if( i->src.length() > 0 )
+        {
+            XString dir = GetDirectoryFromURL( i->src );
+
+            i->branch = ExecAndGetOutput(XString::Format( "git -C %s rev-parse --abbrev-ref HEAD", dir.c_str() ));
+            i->rev = ExecAndGetOutput(XString::Format( "git -C %s rev-parse HEAD", dir.c_str() ));
+        }
+    }
+
+    cfg->Write( outputFilePath );
+}
+
+void GITCheckout( XRef<Config> cfg, const XString& tag )
+{
+#if 0
     if( _UncommittedOrUnstashedChanges( cfg, tag ) )
+        X_THROW(("Cannot checkout with uncommited or unstashed changes."));
+
+    list<struct Component> components=(tag.length()>0) ? cfg->GetMatchingComponents(tag) : cfg->GetAllComponents();
+
+    int err = 0;
+    list<struct Component>::iterator i;
+    for( i = components.begin(); i != components.end(); i++ )
     {
-        printf("Uncommited or unstashed changes.\n");
-        fflush(stdout);
+        if( i->src.length() > 0 )
+        {
+            XString dir = GetDirectoryFromURL( i->src );
+
+//            err = system( XString::Format( "git -C %s checkout %s", dir.c_str(), rev ).c_str() );
+//            if( err < 0 )
+//                X_THROW(("Unable to execute git command."));
+        }
     }
-    else
-    {
-        printf("NO uncommited or unstashed changes.\n");
-        fflush(stdout);
-    }
+#endif
 }

@@ -15,6 +15,7 @@ struct Component
     XSDK::XString src;
     XSDK::XString path;
     XSDK::XString rev;
+    XSDK::XString branch;
     XSDK::XString cleanbuild;
     std::list<XSDK::XString> tags;
 };

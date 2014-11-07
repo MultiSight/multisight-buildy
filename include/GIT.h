@@ -11,6 +11,8 @@ void GITPull( XRef<Config> cfg, const XSDK::XString& tag );
 
 void GITStatus( XRef<Config> cfg, const XSDK::XString& tag );
 
-void GITCheckout( XRef<Config> cfg, const XSDK::XString& tag, const XSDK::XString& rev );
+void GITCheckout( XRef<Config> cfg, const XSDK::XString& tag );
+
+void BuildySnapshot( XRef<Config> cfg, const XSDK::XString& outputFilePath );
 
 #endif

@@ -54,14 +54,6 @@ int main( int argc, char* argv[] )
         {
             GITStatus( cfg, arg );
         }
-        else if( CheckOption( options, "--checkout", arg ) )
-        {
-            XString rev;
-            if( !CheckOption( options, "--revision", rev ) )
-                X_THROW(("--checkout specified without --revision!"));
-
-            GITCheckout( cfg, arg, rev );
-        }
         else if( CheckOption( options, "--build", arg ) )
         {
             XString arg2;
@@ -70,6 +62,13 @@ int main( int argc, char* argv[] )
                         arg,
                         CheckOption( options, "--release", arg2 ),
                         CheckOption( options, "--superclean", arg2 ) );
+        }
+        else if( CheckOption( options, "--snapshot", arg ) )
+        {
+            if( arg.length() == 0 )
+                X_THROW(("--snapshot requested without providing an output path."));
+
+            BuildySnapshot( cfg, arg );
         }
         else PrintHelp();
     }
