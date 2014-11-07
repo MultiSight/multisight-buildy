@@ -44,10 +44,10 @@ int main( int argc, char* argv[] )
         XString arg;
         if( CheckOption( options, "--clone", arg ) )
         {
-            bool ignoreBranch = CheckOption( options, "--ignore-branch" );
-            bool ignoreRev = CheckOption( options, "--ignore-rev" );
+            bool excludeBranch = CheckOption( options, "--exclude-branch" );
+            bool excludeRev = CheckOption( options, "--exclude-rev" );
 
-            GITClone( cfg, arg, ignoreBranch, ignoreRev );
+            GITClone( cfg, arg, excludeBranch, excludeRev );
         }
         else if( CheckOption( options, "--pull", arg ) )
         {

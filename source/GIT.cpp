@@ -37,7 +37,7 @@ static bool _UncommittedOrUnstashedChanges( XRef<Config> cfg, const XString& tag
     return result;
 }
 
-void GITClone( XRef<Config> cfg, const XSDK::XString& tag, bool ignoreBranch, bool ignoreRev )
+void GITClone( XRef<Config> cfg, const XSDK::XString& tag, bool excludeBranch, bool excludeRev )
 {
     list<struct Component> components=(tag.length()>0) ? cfg->GetMatchingComponents(tag) : cfg->GetAllComponents();
 
@@ -58,7 +58,7 @@ void GITClone( XRef<Config> cfg, const XSDK::XString& tag, bool ignoreBranch, bo
                 if( err < 0 )
                     X_THROW(("Unable to execute git command."));
 
-                if( !ignoreBranch )
+                if( !excludeBranch )
                 {
                     if( i->branch.length() > 0 )
                     {
@@ -70,7 +70,7 @@ void GITClone( XRef<Config> cfg, const XSDK::XString& tag, bool ignoreBranch, bo
                     }
                 }
 
-                if( !ignoreRev )
+                if( !excludeRev )
                 {
                     if( i->rev.length() > 0 )
                     {
@@ -150,8 +150,8 @@ void BuildySnapshot( XRef<Config> cfg, const XString& outputFilePath )
         {
             XString dir = GetDirectoryFromURL( i->src );
 
-            i->branch = ExecAndGetOutput(XString::Format( "git -C %s rev-parse --abbrev-ref HEAD", dir.c_str() ));
-            i->rev = ExecAndGetOutput(XString::Format( "git -C %s rev-parse HEAD", dir.c_str() ));
+            i->branch = ExecAndGetOutput(XString::Format( "git -C %s rev-parse --abbrev-ref HEAD", dir.c_str() )).Strip();
+            i->rev = ExecAndGetOutput(XString::Format( "git -C %s rev-parse HEAD", dir.c_str() )).Strip();
         }
     }
 
