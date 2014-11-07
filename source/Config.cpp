@@ -167,6 +167,14 @@ void Config::Write( const XString& path )
 
     if( _components.size() > 0 )
         doc += "] ";
+
+    FILE* outputFile = fopen( path.c_str(), "wb" );
+    if( !outputFile )
+        X_THROW(("Unable to open output file."));
+
+    fwrite( doc.c_str(), 1, doc.length(), outputFile );
+
+    fclose( outputFile );
 }
 
 XRef<XMemory> Config::_ReadFile( const XString& path )

@@ -131,6 +131,9 @@ void BuildySnapshot( XRef<Config> cfg, const XString& outputFilePath )
         }
     }
 
+    printf("outputFilePath = %s\n",outputFilePath.c_str());
+    fflush(stdout);
+
     cfg->Write( outputFilePath );
 }
 
