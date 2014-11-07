@@ -23,8 +23,10 @@ struct Component
 class Config
 {
 public:
-    Config( const XSDK::XString& configPath );
+    Config( const XSDK::XString& configDir );
     virtual ~Config() throw();
+
+    XSDK::XString GetConfigDir() const;
 
     size_t GetNumComponents();
     struct Component GetComponent( size_t index );
@@ -40,6 +42,7 @@ public:
 private:
     XRef<XSDK::XMemory> _ReadFile( const XSDK::XString& path );
 
+    XSDK::XString _configDir;
     XSDK::XString _configPath;
     std::vector<struct Component> _components;
     XSDK::XHash<XRef<std::list<struct Component> > > _tagMembers;

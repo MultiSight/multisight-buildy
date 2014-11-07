@@ -3,6 +3,7 @@
 
 #include "XSDK/XJSON.h"
 #include "XSDK/LargeFiles.h"
+#include "XSDK/XPath.h"
 
 using namespace XSDK;
 using namespace std;
@@ -27,12 +28,13 @@ using namespace std;
 //],
 
 
-Config::Config( const XString& configPath ) :
-    _configPath( configPath ),
+Config::Config( const XString& configDir ) :
+    _configDir( configDir ),
+    _configPath( XString::Format( "%s%sbuildy.json", _configDir.c_str(), PATH_SLASH ) ),
     _components(),
     _tagMembers()
 {
-    XRef<XMemory> buffer = _ReadFile( configPath );
+    XRef<XMemory> buffer = _ReadFile( _configPath );
     XString doc = XString( (char*)buffer->Map(), buffer->GetDataSize() );
     XIRef<XJSONItem> components = XJSONItem::ParseDocument( doc )->Index( "components" );
 
@@ -79,6 +81,11 @@ Config::Config( const XString& configPath ) :
 
 Config::~Config() throw()
 {
+}
+
+XString Config::GetConfigDir() const
+{
+    return _configDir;
 }
 
 size_t Config::GetNumComponents()
@@ -197,18 +204,18 @@ XRef<XMemory> Config::_ReadFile( const XString& path )
     if( !inFile )
         X_THROW(("Unable to open: %s", path.c_str()));
 
-    uint32_t fileSize = fileInfo._fileSize;
-    uint32_t blockSize = fileInfo._optimalBlockSize;
+    uint32_t fileSize = (uint32_t)fileInfo._fileSize;
+    uint32_t blockSize = (uint32_t)fileInfo._optimalBlockSize;
 
-    uint32_t numBlocks = (fileSize > blockSize) ? fileSize / blockSize : 0;
-    uint32_t remainder = (fileSize >= blockSize) ? (fileSize % blockSize) : fileSize;
+    size_t numBlocks = (fileSize > blockSize) ? fileSize / blockSize : 0;
+    size_t remainder = (fileSize >= blockSize) ? (fileSize % blockSize) : fileSize;
 
     XRef<XMemory> result = new XMemory;
     uint8_t* dst = &result->Extend( fileSize );
 
     while( numBlocks > 0 )
     {
-        int itemsRead = fread( dst, blockSize, 1, inFile );
+        size_t itemsRead = fread( dst, blockSize, 1, inFile );
         if( itemsRead > 0 )
         {
             dst += (itemsRead * blockSize);
@@ -218,7 +225,7 @@ XRef<XMemory> Config::_ReadFile( const XString& path )
 
     while( remainder > 0 )
     {
-        int bytesRead = fread( dst, 1, remainder, inFile );
+        size_t bytesRead = fread( dst, 1, remainder, inFile );
         if( bytesRead > 0 )
             remainder -= bytesRead;
     }

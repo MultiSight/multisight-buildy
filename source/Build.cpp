@@ -18,6 +18,8 @@ void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool release, bool 
 	  X_THROW(("Unable to remove devel_artifacts."));
     }
 
+    XString configDir = cfg->GetConfigDir();
+
     list<struct Component> components=(tag.length()>0) ? cfg->GetMatchingComponents(tag) : cfg->GetAllComponents();
 
     list<struct Component>::iterator i;
@@ -25,10 +27,12 @@ void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool release, bool 
     {
       printf("%s\n",i->cleanbuild.c_str());
       fflush(stdout);
-        err = system( XString::Format( "\"%s\" %s %s %s %s",
+        err = system( XString::Format( "\"%s%s%s\" %s %s %s %s",
+                                       configDir.c_str(),
+                                       PATH_SLASH,
 				       i->cleanbuild.c_str(),
 				       i->name.c_str(),
-                       (i->src.length() > 0) ? i->src.c_str() : "NO_SOURCE",
+                                       (i->src.length() > 0) ? i->src.c_str() : "NO_SOURCE",
 				       i->path.c_str(),
                                        (release)?"RELEASE":"DEBUG" ).c_str() );
 	if( err < 0 )

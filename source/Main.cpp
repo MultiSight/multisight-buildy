@@ -30,16 +30,52 @@ void PrintHelp()
     exit(0);
 }
 
+XString FindConfigDir()
+{
+    if( XPath::Exists( "buildy.json" ) )
+        return XString::Format( ".%s", PATH_SLASH );
+
+    XPath path( "." );
+
+    for( path.IterStart(); path.IterValid(); path.Iterate() )
+    {
+        XString entryName = *path.IterData();
+
+        if( XPath::IsDir( entryName ) )
+        {
+            XString potentialPath = XString::Format( "%s%s", entryName.c_str(), PATH_SLASH );
+            if( XPath::Exists( potentialPath + "buildy.json" ) )
+                return potentialPath;
+        }
+    }
+
+    return "";
+}
+
 int main( int argc, char* argv[] )
 {
     try
     {
         list<struct Option> options = ParseOptions( argc, argv );
 
-        XString configPath = "buildy.json";
-        CheckOption( options, "--config", configPath ); // could change configPath
+        XString configDir = FindConfigDir();
 
-        XRef<Config> cfg = new Config( configPath );
+        XString overrideConfigPath;
+        if( CheckOption( options, "--config", overrideConfigPath ) )
+        {
+            size_t lastSlash = overrideConfigPath.rfind( PATH_SLASH );
+
+            if( lastSlash != string::npos )
+                configDir = overrideConfigPath.substr( 0, lastSlash );
+        }
+
+        if( configDir.length() == 0 )
+            X_THROW(("buildy.json not found."));
+
+        printf("configDir = %s\n",configDir.c_str());
+        fflush(stdout);
+
+        XRef<Config> cfg = new Config( configDir );
 
         XString arg;
         if( CheckOption( options, "--clone", arg ) )
