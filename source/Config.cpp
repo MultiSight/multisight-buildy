@@ -127,6 +127,15 @@ list<struct Component> Config::GetMatchingComponents( const XString& arg )
     return matched;
 }
 
+void Config::SetAllComponents( const list<struct Component>& components )
+{
+    _components.clear();
+
+    list<struct Component>::const_iterator i;
+    for( i = components.begin(); i != components.end(); i++ )
+        _components.push_back( *i );
+}
+
 void Config::Write( const XString& path )
 {
     XString doc;
