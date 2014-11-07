@@ -132,41 +132,41 @@ void Config::Write( const XString& path )
     XString doc;
 
     if( _components.size() > 0 )
-        doc += "[ ";
+        doc += "[ \n";
 
     vector<struct Component>::iterator i;
     for( i = _components.begin(); i != _components.end(); i++ )
     {
         bool lastComponent = (next(i) == _components.end()) ? true : false;
 
-        doc += "{ ";
-        doc += XString::Format( "\"name\": \"%s\", ", i->name.c_str() );
-        doc += XString::Format( "\"src\": \"%s\", ", i->src.c_str() );
-        doc += XString::Format( "\"path\": \"%s\", ", i->path.c_str() );
+        doc += "  { \n";
+        doc += XString::Format( "    \"name\": \"%s\", \n", i->name.c_str() );
+        doc += XString::Format( "    \"src\": \"%s\", \n", i->src.c_str() );
+        doc += XString::Format( "    \"path\": \"%s\", \n", i->path.c_str() );
         if( i->rev.length() > 0 )
-            doc += XString::Format( "\"rev\": \"%s\", ", i->rev.c_str() );
+            doc += XString::Format( "    \"rev\": \"%s\", \n", i->rev.c_str() );
         if( i->branch.length() > 0 )
-            doc += XString::Format( "\"branch\": \"%s\", ", i->branch.c_str() );
+            doc += XString::Format( "    \"branch\": \"%s\", \n", i->branch.c_str() );
         if( i->tags.size() > 0 )
         {
-            doc += "\"tags\": [ ";
+            doc += "    \"tags\": [ \n";
 
             list<XString>::iterator ii;
             for( ii = i->tags.begin(); ii != i->tags.end(); ii++ )
             {
                 bool lastTag = (next(ii) == i->tags.end()) ? true : false;
-                doc += XString::Format( "\"%s\"%s ", ii->c_str(), (lastTag) ? "" : "," );
+                doc += XString::Format( "      \"%s\"%s \n", ii->c_str(), (lastTag) ? "" : "," );
             }
 
-            doc += "], ";
+            doc += "    ], \n";
         }
-        doc += XString::Format( "\"cleanbuild\": \"%s\" ", i->cleanbuild.c_str() );
+        doc += XString::Format( "    \"cleanbuild\": \"%s\" \n", i->cleanbuild.c_str() );
 
-        doc += XString::Format( "}%s ", (lastComponent) ? "" : "," );
+        doc += XString::Format( "  }%s \n", (lastComponent) ? "" : "," );
     }
 
     if( _components.size() > 0 )
-        doc += "] ";
+        doc += "] \n";
 
     FILE* outputFile = fopen( path.c_str(), "wb" );
     if( !outputFile )
