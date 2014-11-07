@@ -15,4 +15,6 @@ std::list<struct Option> ParseOptions( int argc, char* argv[] );
 
 bool CheckOption( const std::list<struct Option>& options, const XSDK::XString& opt, XSDK::XString& arg );
 
+bool CheckOption( const std::list<struct Option>& options, const XSDK::XString& opt );
+
 #endif

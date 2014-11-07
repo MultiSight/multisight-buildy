@@ -37,7 +37,7 @@ static bool _UncommittedOrUnstashedChanges( XRef<Config> cfg, const XString& tag
     return result;
 }
 
-void GITClone( XRef<Config> cfg, const XSDK::XString& tag )
+void GITClone( XRef<Config> cfg, const XSDK::XString& tag, bool ignoreBranch, bool ignoreRev )
 {
     list<struct Component> components=(tag.length()>0) ? cfg->GetMatchingComponents(tag) : cfg->GetAllComponents();
 
@@ -57,6 +57,30 @@ void GITClone( XRef<Config> cfg, const XSDK::XString& tag )
                 err = system( XString::Format( "git clone %s %s", i->src.c_str(), dir.c_str() ).c_str() );
                 if( err < 0 )
                     X_THROW(("Unable to execute git command."));
+
+                if( !ignoreBranch )
+                {
+                    if( i->branch.length() > 0 )
+                    {
+                        err = system( XString::Format( "git -C %s checkout %s",
+                                                       dir.c_str(),
+                                                       i->branch.c_str() ).c_str() );
+                        if( err < 0 )
+                            X_THROW(("Unable to execute git command."));
+                    }
+                }
+
+                if( !ignoreRev )
+                {
+                    if( i->rev.length() > 0 )
+                    {
+                        err = system( XString::Format( "git -C %s checkout %s",
+                                                       dir.c_str(),
+                                                       i->rev.c_str() ).c_str() );
+                        if( err < 0 )
+                            X_THROW(("Unable to execute git command."));
+                    }
+                }
             }
             else
             {

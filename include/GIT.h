@@ -5,7 +5,7 @@
 #include "XSDK/XString.h"
 #include "Config.h"
 
-void GITClone( XRef<Config> cfg, const XSDK::XString& tag );
+void GITClone( XRef<Config> cfg, const XSDK::XString& tag, bool ignoreBranch = false, bool ignoreRev = false );
 
 void GITPull( XRef<Config> cfg, const XSDK::XString& tag );
 

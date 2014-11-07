@@ -62,3 +62,15 @@ bool CheckOption( const list<struct Option>& options, const XSDK::XString& opt, 
 
     return false;
 }
+
+bool CheckOption( const list<struct Option>& options, const XSDK::XString& opt )
+{
+    list<struct Option>::const_iterator i;
+    for( i = options.begin(); i != options.end(); i++ )
+    {
+        if( i->opt == opt )
+            return true;
+    }
+
+    return false;
+}
