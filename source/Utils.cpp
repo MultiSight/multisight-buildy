@@ -24,7 +24,7 @@ XString ExecAndGetOutput( const XString& cmd )
 #ifdef IS_WINDOWS
     output = _popen( cmd.c_str(), "rb" );
 #else
-    output = popen( cmd.c_str(), "rb" );
+    output = popen( cmd.c_str(), "r" );
 #endif
 
     if( !output )
