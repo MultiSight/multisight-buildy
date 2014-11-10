@@ -28,12 +28,15 @@ using namespace std;
 //],
 
 
-Config::Config( const XString& configDir ) :
+Config::Config( const XString& configDir, const XString& configFileName ) :
     _configDir( configDir ),
-    _configPath( XString::Format( "%s%sbuildy.json", _configDir.c_str(), PATH_SLASH ) ),
+    _configPath( XString::Format( "%s%s%s", _configDir.c_str(), PATH_SLASH, (configFileName.length()!=0)?configFileName.c_str():"buildy.json" ) ),
     _components(),
     _tagMembers()
 {
+    printf("_configPath = %s\n",_configPath.c_str());
+    fflush(stdout);
+
     XRef<XMemory> buffer = _ReadFile( _configPath );
     XString doc = XString( (char*)buffer->Map(), buffer->GetDataSize() );
     XIRef<XJSONItem> components = XJSONItem::ParseDocument( doc )->Index( "components" );

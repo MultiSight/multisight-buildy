@@ -23,7 +23,7 @@ struct Component
 class Config
 {
 public:
-    Config( const XSDK::XString& configDir );
+    Config( const XSDK::XString& configDir, const XSDK::XString& configFileName = "" );
     virtual ~Config() throw();
 
     XSDK::XString GetConfigDir() const;

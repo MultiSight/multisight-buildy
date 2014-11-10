@@ -59,14 +59,22 @@ int main( int argc, char* argv[] )
         list<struct Option> options = ParseOptions( argc, argv );
 
         XString configDir = FindConfigDir();
+        XString configFileName;
 
         XString overrideConfigPath;
         if( CheckOption( options, "--config", overrideConfigPath ) )
         {
-            size_t lastSlash = overrideConfigPath.rfind( PATH_SLASH );
-
-            if( lastSlash != string::npos )
+            if( overrideConfigPath.Contains( PATH_SLASH ) )
+            {
+                size_t lastSlash = overrideConfigPath.rfind( PATH_SLASH );
                 configDir = overrideConfigPath.substr( 0, lastSlash );
+                configFileName = overrideConfigPath.substr( lastSlash + 1 );
+            }
+            else
+            {
+                configDir = ".";
+                configFileName = overrideConfigPath;
+            }
         }
 
         if( configDir.length() == 0 )
@@ -75,7 +83,7 @@ int main( int argc, char* argv[] )
         printf("configDir = %s\n",configDir.c_str());
         fflush(stdout);
 
-        XRef<Config> cfg = new Config( configDir );
+        XRef<Config> cfg = new Config( configDir, configFileName );
 
         XString arg;
         if( CheckOption( options, "--clone", arg ) )
