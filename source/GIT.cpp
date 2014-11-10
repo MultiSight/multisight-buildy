@@ -60,13 +60,17 @@ void GITClone( XRef<Config> cfg, const XSDK::XString& tag, bool excludeBranch, b
 
                 if( !excludeBranch )
                 {
-                    if( i->branch.length() > 0 )
+                    // only do branch checkouts if revision is not set...
+                    if( i->rev.length() == 0 )
                     {
-                        err = system( XString::Format( "git -C %s checkout %s",
-                                                       dir.c_str(),
-                                                       i->branch.c_str() ).c_str() );
-                        if( err < 0 )
-                            X_THROW(("Unable to execute git command."));
+                        if( i->branch.length() > 0 )
+                        {
+                            err = system( XString::Format( "git -C %s checkout %s",
+                                                           dir.c_str(),
+                                                           i->branch.c_str() ).c_str() );
+                            if( err < 0 )
+                                X_THROW(("Unable to execute git command."));
+                        }
                     }
                 }
 

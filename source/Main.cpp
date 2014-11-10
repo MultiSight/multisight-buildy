@@ -80,9 +80,6 @@ int main( int argc, char* argv[] )
         if( configDir.length() == 0 )
             X_THROW(("buildy.json not found."));
 
-        printf("configDir = %s\n",configDir.c_str());
-        fflush(stdout);
-
         XRef<Config> cfg = new Config( configDir, configFileName );
 
         XString arg;

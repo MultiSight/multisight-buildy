@@ -34,9 +34,6 @@ Config::Config( const XString& configDir, const XString& configFileName ) :
     _components(),
     _tagMembers()
 {
-    printf("_configPath = %s\n",_configPath.c_str());
-    fflush(stdout);
-
     XRef<XMemory> buffer = _ReadFile( _configPath );
     XString doc = XString( (char*)buffer->Map(), buffer->GetDataSize() );
     XIRef<XJSONItem> components = XJSONItem::ParseDocument( doc )->Index( "components" );
