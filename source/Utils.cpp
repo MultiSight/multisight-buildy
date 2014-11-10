@@ -1,5 +1,6 @@
 
 #include "Utils.h"
+#include "XSDK/LargeFiles.h"
 
 using namespace XSDK;
 
@@ -46,4 +47,60 @@ XString ExecAndGetOutput( const XString& cmd )
 #endif
 
     return result;
+}
+
+XRef<XMemory> ReadFile( const XString& path )
+{
+    struct x_file_info fileInfo;
+    if( x_stat( path, &fileInfo ) < 0 )
+        X_THROW(("Unable to stat config."));
+
+    FILE* inFile = fopen( path.c_str(), "r+b" );
+    if( !inFile )
+        X_THROW(("Unable to open: %s", path.c_str()));
+
+    uint32_t fileSize = (uint32_t)fileInfo._fileSize;
+    uint32_t blockSize = (uint32_t)fileInfo._optimalBlockSize;
+
+    size_t numBlocks = (fileSize > blockSize) ? fileSize / blockSize : 0;
+    size_t remainder = (fileSize >= blockSize) ? (fileSize % blockSize) : fileSize;
+
+    XRef<XMemory> result = new XMemory;
+    uint8_t* dst = &result->Extend( fileSize );
+
+    while( numBlocks > 0 )
+    {
+        size_t itemsRead = fread( dst, blockSize, 1, inFile );
+        if( itemsRead > 0 )
+        {
+            dst += (itemsRead * blockSize);
+            numBlocks -= itemsRead;
+        }
+    }
+
+    while( remainder > 0 )
+    {
+        size_t bytesRead = fread( dst, 1, remainder, inFile );
+        if( bytesRead > 0 )
+            remainder -= bytesRead;
+    }
+
+    return result;
+}
+
+XString ReadFileAsString( const XString& path )
+{
+    XRef<XMemory> buffer = ReadFile( path );
+    return XString( (char*)buffer->Map(), buffer->GetDataSize() );
+}
+
+void WriteFileContents( const XSDK::XString& fileName, const XSDK::XString& fileContents )
+{
+    FILE* outFile = fopen( fileName.c_str(), "wb" );
+    if( !outFile )
+        X_THROW(("Unable to open output file."));
+
+    fwrite( fileContents.c_str(), 1, fileContents.length(), outFile );
+
+    fclose( outFile );
 }

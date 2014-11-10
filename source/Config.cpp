@@ -1,5 +1,6 @@
 
 #include "Config.h"
+#include "Utils.h"
 
 #include "XSDK/XJSON.h"
 #include "XSDK/LargeFiles.h"
@@ -34,7 +35,7 @@ Config::Config( const XString& configDir, const XString& configFileName ) :
     _components(),
     _tagMembers()
 {
-    XRef<XMemory> buffer = _ReadFile( _configPath );
+    XRef<XMemory> buffer = ReadFile( _configPath );
     XString doc = XString( (char*)buffer->Map(), buffer->GetDataSize() );
     XIRef<XJSONItem> components = XJSONItem::ParseDocument( doc )->Index( "components" );
 
@@ -58,7 +59,15 @@ Config::Config( const XString& configDir, const XString& configFileName ) :
         component.path = bc->Index( "path" )->Get<XString>();
         component.rev = (bc->HasIndex( "rev" )) ? bc->Index( "rev" )->Get<XString>() : "";
         component.branch = (bc->HasIndex( "branch" )) ? bc->Index( "branch" )->Get<XString>() : "";
-        component.cleanbuild = bc->Index( "cleanbuild" )->Get<XString>();
+        component.cleanbuild = (bc->HasIndex( "cleanbuild" )) ? bc->Index( "cleanbuild" )->Get<XString>() : "";
+
+        if( bc->HasIndex( "cleanbuild_contents" ) )
+        {
+            XString encodedCleanBuildContents = bc->Index( "cleanbuild_contents" )->Get<XString>();
+            XIRef<XMemory> decoded = encodedCleanBuildContents.FromBase64();
+
+            component.cleanbuildContents = XString( (char*)decoded->Map(), decoded->GetDataSize() );
+        }
 
         if( bc->HasIndex( "tags" ) )
         {
@@ -177,7 +186,12 @@ void Config::Write( const XString& path )
 
             doc += "      ],\n";
         }
-        doc += XString::Format( "      \"cleanbuild\": \"%s\"\n", i->cleanbuild.c_str() );
+
+        if( !i->cleanbuildContents.length() )
+            X_THROW(("Snapshots require embedded build scripts."));
+
+        doc += XString::Format( "      \"cleanbuild_contents\": \"%s\"\n",
+                                XString::Base64Encode( i->cleanbuildContents.c_str(), i->cleanbuildContents.length() ).c_str() );
 
         doc += XString::Format( "    }%s\n", (lastComponent) ? "" : "," );
     }
@@ -192,43 +206,4 @@ void Config::Write( const XString& path )
     fwrite( doc.c_str(), 1, doc.length(), outputFile );
 
     fclose( outputFile );
-}
-
-XRef<XMemory> Config::_ReadFile( const XString& path )
-{
-    struct x_file_info fileInfo;
-    if( x_stat( path, &fileInfo ) < 0 )
-        X_THROW(("Unable to stat config."));
-
-    FILE* inFile = fopen( path.c_str(), "r+b" );
-    if( !inFile )
-        X_THROW(("Unable to open: %s", path.c_str()));
-
-    uint32_t fileSize = (uint32_t)fileInfo._fileSize;
-    uint32_t blockSize = (uint32_t)fileInfo._optimalBlockSize;
-
-    size_t numBlocks = (fileSize > blockSize) ? fileSize / blockSize : 0;
-    size_t remainder = (fileSize >= blockSize) ? (fileSize % blockSize) : fileSize;
-
-    XRef<XMemory> result = new XMemory;
-    uint8_t* dst = &result->Extend( fileSize );
-
-    while( numBlocks > 0 )
-    {
-        size_t itemsRead = fread( dst, blockSize, 1, inFile );
-        if( itemsRead > 0 )
-        {
-            dst += (itemsRead * blockSize);
-            numBlocks -= itemsRead;
-        }
-    }
-
-    while( remainder > 0 )
-    {
-        size_t bytesRead = fread( dst, 1, remainder, inFile );
-        if( bytesRead > 0 )
-            remainder -= bytesRead;
-    }
-
-    return result;
 }

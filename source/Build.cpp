@@ -1,5 +1,6 @@
 
 #include "Build.h"
+#include "Utils.h"
 #include "XSDK/XPath.h"
 
 using namespace XSDK;
@@ -25,17 +26,46 @@ void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool release, bool 
     list<struct Component>::iterator i;
     for( i = components.begin(); i != components.end(); i++ )
     {
-      printf("%s\n",i->cleanbuild.c_str());
-      fflush(stdout);
-        err = system( XString::Format( "\"%s%s%s\" %s %s %s %s",
-                                       configDir.c_str(),
-                                       PATH_SLASH,
-				       i->cleanbuild.c_str(),
-				       i->name.c_str(),
-                                       (i->src.length() > 0) ? i->src.c_str() : "NO_SOURCE",
-				       i->path.c_str(),
-                                       (release)?"RELEASE":"DEBUG" ).c_str() );
-	if( err < 0 )
-	  X_THROW(("Build command failure."));
+        if( i->cleanbuild.length() > 0 )
+        {
+            printf("%s\n",i->cleanbuild.c_str());
+            fflush(stdout);
+
+            err = system( XString::Format( "\"%s%s%s\" %s %s %s %s",
+                                           configDir.c_str(),
+                                           PATH_SLASH,
+                                           i->cleanbuild.c_str(),
+                                           i->name.c_str(),
+                                           (i->src.length() > 0) ? i->src.c_str() : "NO_SOURCE",
+                                           i->path.c_str(),
+                                           (release)?"RELEASE":"DEBUG" ).c_str() );
+            if( err < 0 )
+                X_THROW(("Build command failure."));
+        }
+        else if( i->cleanbuildContents.length() > 0 )
+        {
+#ifdef IS_WINDOWS
+            XString fileName = "embedded_build.bat";
+#else
+            XString fileName = "embedded_build.sh";
+#endif
+            if( XPath::Exists( fileName ) )
+                remove( fileName.c_str() );
+
+            WriteFileContents( fileName, i->cleanbuildContents );
+
+            err = system( XString::Format( "%s %s %s %s %s",
+                                           fileName.c_str(),
+                                           i->name.c_str(),
+                                           (i->src.length() > 0) ? i->src.c_str() : "NO_SOURCE",
+                                           i->path.c_str(),
+                                           (release)?"RELEASE":"DEBUG" ).c_str() );
+            if( err < 0 )
+                X_THROW(("Build command failure."));
+
+            if( XPath::Exists( fileName ) )
+                remove( fileName.c_str() );
+        }
+        else X_THROW(( "No build script file specified and no cleanbuild_contents specified." ));
     }
 }

@@ -144,6 +144,8 @@ void BuildySnapshot( XRef<Config> cfg, const XString& outputFilePath )
     if( _UncommittedOrUnstashedChanges( cfg ) )
         X_THROW(("Cannot snapshot with uncommited or unstashed changes."));
 
+    XString configDir = cfg->GetConfigDir();
+
     list<struct Component> components = cfg->GetAllComponents();
 
     int err = 0;
@@ -156,6 +158,12 @@ void BuildySnapshot( XRef<Config> cfg, const XString& outputFilePath )
 
             i->branch = ExecAndGetOutput(XString::Format( "git -C %s rev-parse --abbrev-ref HEAD", dir.c_str() )).Strip();
             i->rev = ExecAndGetOutput(XString::Format( "git -C %s rev-parse HEAD", dir.c_str() )).Strip();
+
+            XString cleanbuildFileName =
+                XString::Format( "%s%s%s", configDir.c_str(), PATH_SLASH, i->cleanbuild.c_str() );
+
+            i->cleanbuildContents = ReadFileAsString( cleanbuildFileName );
+            i->cleanbuild = "";
         }
     }
 
