@@ -45,14 +45,21 @@ void CleanBuild( XRef<Config> cfg, const XSDK::XString& tag, bool release, bool 
         else if( i->cleanbuildContents.length() > 0 )
         {
 #ifdef IS_WINDOWS
-            XString fileName = "embedded_build.bat";
+            XString fileName = ".\\embedded_build.bat";
 #else
-            XString fileName = "embedded_build.sh";
+            XString fileName = "./embedded_build.sh";
 #endif
             if( XPath::Exists( fileName ) )
                 remove( fileName.c_str() );
 
             WriteFileContents( fileName, i->cleanbuildContents );
+
+#ifdef IS_LINUX
+            err = system( XString::Format( "chmod +x %s",
+                                           fileName.c_str() ).c_str() );
+            if( err < 0 )
+                X_THROW(("Build command failure."));
+#endif
 
             err = system( XString::Format( "%s %s %s %s %s",
                                            fileName.c_str(),

@@ -163,37 +163,40 @@ void Config::Write( const XString& path )
     vector<struct Component>::iterator i;
     for( i = _components.begin(); i != _components.end(); i++ )
     {
-        bool lastComponent = (next(i) == _components.end()) ? true : false;
-
-        doc += "    {\n";
-        doc += XString::Format( "      \"name\": \"%s\",\n", i->name.c_str() );
-        doc += XString::Format( "      \"src\": \"%s\",\n", i->src.c_str() );
-        doc += XString::Format( "      \"path\": \"%s\",\n", i->path.c_str() );
-        if( i->rev.length() > 0 )
-            doc += XString::Format( "      \"rev\": \"%s\",\n", i->rev.c_str() );
-        if( i->branch.length() > 0 )
-            doc += XString::Format( "      \"branch\": \"%s\",\n", i->branch.c_str() );
-        if( i->tags.size() > 0 )
+        if( i->src.length() > 0 )
         {
-            doc += "      \"tags\": [\n";
+            bool lastComponent = (next(i) == _components.end()) ? true : false;
 
-            list<XString>::iterator ii;
-            for( ii = i->tags.begin(); ii != i->tags.end(); ii++ )
+            doc += "    {\n";
+            doc += XString::Format( "      \"name\": \"%s\",\n", i->name.c_str() );
+            doc += XString::Format( "      \"src\": \"%s\",\n", i->src.c_str() );
+            doc += XString::Format( "      \"path\": \"%s\",\n", i->path.c_str() );
+            if( i->rev.length() > 0 )
+                doc += XString::Format( "      \"rev\": \"%s\",\n", i->rev.c_str() );
+            if( i->branch.length() > 0 )
+                doc += XString::Format( "      \"branch\": \"%s\",\n", i->branch.c_str() );
+            if( i->tags.size() > 0 )
             {
-                bool lastTag = (next(ii) == i->tags.end()) ? true : false;
-                doc += XString::Format( "        \"%s\"%s\n", ii->c_str(), (lastTag) ? "" : "," );
+                doc += "      \"tags\": [\n";
+
+                list<XString>::iterator ii;
+                for( ii = i->tags.begin(); ii != i->tags.end(); ii++ )
+                {
+                    bool lastTag = (next(ii) == i->tags.end()) ? true : false;
+                    doc += XString::Format( "        \"%s\"%s\n", ii->c_str(), (lastTag) ? "" : "," );
+                }
+
+                doc += "      ],\n";
             }
 
-            doc += "      ],\n";
+            if( !i->cleanbuildContents.length() )
+                X_THROW(("Snapshots require embedded build scripts."));
+
+            doc += XString::Format( "      \"cleanbuild_contents\": \"%s\"\n",
+                                    XString::Base64Encode( i->cleanbuildContents.c_str(), i->cleanbuildContents.length() ).c_str() );
+
+            doc += XString::Format( "    }%s\n", (lastComponent) ? "" : "," );
         }
-
-        if( !i->cleanbuildContents.length() )
-            X_THROW(("Snapshots require embedded build scripts."));
-
-        doc += XString::Format( "      \"cleanbuild_contents\": \"%s\"\n",
-                                XString::Base64Encode( i->cleanbuildContents.c_str(), i->cleanbuildContents.length() ).c_str() );
-
-        doc += XString::Format( "    }%s\n", (lastComponent) ? "" : "," );
     }
 
     doc += "  ]\n";
