@@ -114,6 +114,10 @@ int main( int argc, char* argv[] )
 
             BuildySnapshot( cfg, arg );
         }
+        else if( CheckOption( options, "--superclean", arg ) )
+        {
+            SuperClean( cfg, arg );
+        }
         else PrintHelp();
     }
     catch( std::exception& ex )
