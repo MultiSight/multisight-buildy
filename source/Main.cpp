@@ -124,7 +124,7 @@ int main( int argc, char* argv[] )
     {
         printf("%s\n",ex.what());
         fflush(stdout);
-        exit(0);
+        exit(1);
     }
 
     return 0;
