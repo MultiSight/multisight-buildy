@@ -117,11 +117,21 @@ void GITPull( XRef<Config> cfg, const XSDK::XString& tag )
     }
 }
 
-void GITStatus( XRef<Config> cfg, const XSDK::XString& tag )
+void GITStatus( XRef<Config> cfg, const XSDK::XString& tag, const XString& configDir )
 {
     list<struct Component> components=(tag.length()>0) ? cfg->GetMatchingComponents(tag) : cfg->GetAllComponents();
 
     int err = 0;
+
+    XString dir = configDir;
+
+    printf("status: %s\n",dir.c_str());
+    fflush(stdout);
+
+    err = system( XString::Format( "git -C %s status --short", dir.c_str() ).c_str() );
+    if( err < 0 )
+        X_THROW(("Unable to execute git command."));
+
     list<struct Component>::iterator i;
     for( i = components.begin(); i != components.end(); i++ )
     {

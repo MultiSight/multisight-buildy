@@ -96,7 +96,7 @@ int main( int argc, char* argv[] )
         }
         else if( CheckOption( options, "--status", arg ) )
         {
-            GITStatus( cfg, arg );
+            GITStatus( cfg, arg, configDir );
         }
         else if( CheckOption( options, "--build", arg ) )
         {

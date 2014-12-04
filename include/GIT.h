@@ -9,7 +9,7 @@ void GITClone( XRef<Config> cfg, const XSDK::XString& tag, bool excludeBranch = 
 
 void GITPull( XRef<Config> cfg, const XSDK::XString& tag );
 
-void GITStatus( XRef<Config> cfg, const XSDK::XString& tag );
+void GITStatus( XRef<Config> cfg, const XSDK::XString& tag, const XSDK::XString& configDir );
 
 void GITCheckout( XRef<Config> cfg, const XSDK::XString& tag );
 
