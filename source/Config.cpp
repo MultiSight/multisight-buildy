@@ -2,7 +2,6 @@
 #include "Config.h"
 #include "Utils.h"
 
-#include "XSDK/XJSON.h"
 #include "XSDK/LargeFiles.h"
 #include "XSDK/XPath.h"
 
@@ -32,59 +31,35 @@ using namespace std;
 Config::Config( const XString& configDir, const XString& configFileName ) :
     _configDir( configDir ),
     _configPath( XString::Format( "%s%s%s", _configDir.c_str(), PATH_SLASH, (configFileName.length()!=0)?configFileName.c_str():"buildy.json" ) ),
+    _localConfigPath( "local.json" ),
     _components(),
     _tagMembers()
 {
+    XIRef<XJSONItem> localComponents;
+
+    if( XPath::Exists( _localConfigPath ) )
+    {
+        XRef<XMemory> localConfigBuffer = ReadFile( _localConfigPath );
+        XString localDoc = XString( (char*)localConfigBuffer->Map(), localConfigBuffer->GetDataSize() );
+        localComponents = XJSONItem::ParseDocument( localDoc )->Index( "components" );
+    }
+
     XRef<XMemory> buffer = ReadFile( _configPath );
     XString doc = XString( (char*)buffer->Map(), buffer->GetDataSize() );
     XIRef<XJSONItem> components = XJSONItem::ParseDocument( doc )->Index( "components" );
 
-    _components.reserve( components->Count() );
+    _components.reserve( components->Count() + localComponents->Count() );
 
     for( size_t i = 0; i < components->Count(); i++ )
     {
         XIRef<XJSONItem> bc = components->Index( i );
+        _components.push_back( _CreateComponent( bc ) );
+    }
 
-        if( !bc->HasIndex( "name" ) )
-            X_THROW(("Build component missing required: name"));
-        if( !bc->HasIndex( "src" ) )
-            X_THROW(("Build component missing required: src"));
-        if( !bc->HasIndex( "path" ) )
-            X_THROW(("Build component missing required: path"));
-
-        struct Component component;
-
-        component.name = bc->Index( "name" )->Get<XString>();
-        component.src = bc->Index( "src" )->Get<XString>();
-        component.path = bc->Index( "path" )->Get<XString>();
-        component.rev = (bc->HasIndex( "rev" )) ? bc->Index( "rev" )->Get<XString>() : "";
-        component.branch = (bc->HasIndex( "branch" )) ? bc->Index( "branch" )->Get<XString>() : "";
-        component.cleanbuild = (bc->HasIndex( "cleanbuild" )) ? bc->Index( "cleanbuild" )->Get<XString>() : "";
-
-        if( bc->HasIndex( "cleanbuild_contents" ) )
-        {
-            XString encodedCleanBuildContents = bc->Index( "cleanbuild_contents" )->Get<XString>();
-            XIRef<XMemory> decoded = encodedCleanBuildContents.FromBase64();
-
-            component.cleanbuildContents = XString( (char*)decoded->Map(), decoded->GetDataSize() );
-        }
-
-        if( bc->HasIndex( "tags" ) )
-        {
-            for( size_t ii = 0; ii < bc->Index( "tags" )->Count(); ii++ )
-            {
-                XString tag = bc->Index( "tags" )->Index( ii )->Get<XString>();
-
-                component.tags.push_back( tag );
-
-                if( _tagMembers.Find( tag ) == NULL )
-                    _tagMembers.Add( tag, new list<struct Component>() );
-
-                _tagMembers[tag]->push_back( component );
-            }
-        }
-
-        _components.push_back( component );
+    for( size_t i = 0; i < localComponents->Count(); i++ )
+    {
+        XIRef<XJSONItem> bc = localComponents->Index( i );
+        _components.push_back( _CreateComponent( bc ) );
     }
 }
 
@@ -209,4 +184,48 @@ void Config::Write( const XString& path )
     fwrite( doc.c_str(), 1, doc.length(), outputFile );
 
     fclose( outputFile );
+}
+
+struct Component Config::_CreateComponent( XIRef<XJSONItem> bc )
+{
+    if( !bc->HasIndex( "name" ) )
+        X_THROW(("Build component missing required: name"));
+    if( !bc->HasIndex( "src" ) )
+        X_THROW(("Build component missing required: src"));
+    if( !bc->HasIndex( "path" ) )
+        X_THROW(("Build component missing required: path"));
+
+    struct Component component;
+
+    component.name = bc->Index( "name" )->Get<XString>();
+    component.src = bc->Index( "src" )->Get<XString>();
+    component.path = bc->Index( "path" )->Get<XString>();
+    component.rev = (bc->HasIndex( "rev" )) ? bc->Index( "rev" )->Get<XString>() : "";
+    component.branch = (bc->HasIndex( "branch" )) ? bc->Index( "branch" )->Get<XString>() : "";
+    component.cleanbuild = (bc->HasIndex( "cleanbuild" )) ? bc->Index( "cleanbuild" )->Get<XString>() : "";
+
+    if( bc->HasIndex( "cleanbuild_contents" ) )
+    {
+        XString encodedCleanBuildContents = bc->Index( "cleanbuild_contents" )->Get<XString>();
+        XIRef<XMemory> decoded = encodedCleanBuildContents.FromBase64();
+
+        component.cleanbuildContents = XString( (char*)decoded->Map(), decoded->GetDataSize() );
+    }
+
+    if( bc->HasIndex( "tags" ) )
+    {
+        for( size_t ii = 0; ii < bc->Index( "tags" )->Count(); ii++ )
+        {
+            XString tag = bc->Index( "tags" )->Index( ii )->Get<XString>();
+
+            component.tags.push_back( tag );
+
+            if( _tagMembers.Find( tag ) == NULL )
+                _tagMembers.Add( tag, new list<struct Component>() );
+
+            _tagMembers[tag]->push_back( component );
+        }
+    }
+
+    return component;
 }

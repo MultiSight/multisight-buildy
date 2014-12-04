@@ -6,6 +6,7 @@
 #include "XSDK/XMemory.h"
 #include "XSDK/XRef.h"
 #include "XSDK/XHash.h"
+#include "XSDK/XJSON.h"
 #include <list>
 #include <vector>
 
@@ -41,10 +42,11 @@ public:
     void Write( const XSDK::XString& path );
 
 private:
-    XRef<XSDK::XMemory> _ReadFile( const XSDK::XString& path );
+    struct Component _CreateComponent( XIRef<XSDK::XJSONItem> bc );
 
     XSDK::XString _configDir;
     XSDK::XString _configPath;
+    XSDK::XString _localConfigPath;
     std::vector<struct Component> _components;
     XSDK::XHash<XRef<std::list<struct Component> > > _tagMembers;
 };
