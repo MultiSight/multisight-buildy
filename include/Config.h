@@ -19,6 +19,7 @@ struct Component
     XSDK::XString branch;
     XSDK::XString cleanbuild;
     XSDK::XString cleanbuildContents;
+    XSDK::XString cleantest;
     std::list<XSDK::XString> tags;
 };
 

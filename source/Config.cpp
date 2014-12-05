@@ -177,6 +177,9 @@ void Config::Write( const XString& path )
             doc += XString::Format( "      \"cleanbuild_contents\": \"%s\"\n",
                                     XString::Base64Encode( i->cleanbuildContents.c_str(), i->cleanbuildContents.length() ).c_str() );
 
+            if( i->cleantest.length() > 0 )
+                doc += XString::Format( "      \"cleantest\": \"%s\",\n", i->cleantest.c_str() );
+
             doc += XString::Format( "    }%s\n", (lastComponent) ? "" : "," );
         }
     }
@@ -218,6 +221,8 @@ struct Component Config::_CreateComponent( XIRef<XJSONItem> bc )
 
         component.cleanbuildContents = XString( (char*)decoded->Map(), decoded->GetDataSize() );
     }
+
+    component.cleantest = (bc->HasIndex( "cleantest" )) ? bc->Index( "cleantest" )->Get<XString>() : "";
 
     if( bc->HasIndex( "tags" ) )
     {

@@ -9,7 +9,8 @@ set(SOURCES source/Main.cpp
             source/Option.cpp
             source/GIT.cpp
             source/Utils.cpp
-            source/Build.cpp)
+            source/Build.cpp
+            source/Test.cpp)
 
 set(WINDOWS_LIBS XSDK)
 set(LINUX_LIBS XSDK)

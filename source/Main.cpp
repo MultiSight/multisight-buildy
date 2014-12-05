@@ -11,6 +11,7 @@
 #include "Option.h"
 #include "GIT.h"
 #include "Build.h"
+#include "Test.h"
 
 using namespace XSDK;
 using namespace std;
@@ -117,6 +118,10 @@ int main( int argc, char* argv[] )
         else if( CheckOption( options, "--superclean", arg ) )
         {
             SuperClean( cfg, arg );
+        }
+        else if( CheckOption( options, "--test", arg ) )
+        {
+            Test( cfg, arg );
         }
         else PrintHelp();
     }
