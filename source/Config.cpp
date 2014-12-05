@@ -48,15 +48,22 @@ Config::Config( const XString& configDir, const XString& configFileName ) :
     XString doc = XString( (char*)buffer->Map(), buffer->GetDataSize() );
     XIRef<XJSONItem> components = XJSONItem::ParseDocument( doc )->Index( "components" );
 
-    _components.reserve( components->Count() + localComponents->Count() );
+    if (components.Get() == NULL)
+        X_THROW(("Found no build components in config"));
 
-    for( size_t i = 0; i < components->Count(); i++ )
+    size_t numComponents = components->Count();
+
+    size_t numLocalComponents = (localComponents.Get()) ? localComponents->Count() : 0;
+
+    _components.reserve( numComponents + numLocalComponents );
+
+    for( size_t i = 0; i < numComponents; i++ )
     {
         XIRef<XJSONItem> bc = components->Index( i );
         _components.push_back( _CreateComponent( bc ) );
     }
 
-    for( size_t i = 0; i < localComponents->Count(); i++ )
+    for( size_t i = 0; i < numLocalComponents; i++ )
     {
         XIRef<XJSONItem> bc = localComponents->Index( i );
         _components.push_back( _CreateComponent( bc ) );
