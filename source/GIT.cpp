@@ -125,7 +125,11 @@ void GITStatus( XRef<Config> cfg, const XSDK::XString& tag, const XString& confi
 
     XString dir = configDir;
 
-    printf("status: %s\n",dir.c_str());
+    XString cmdOutput = ExecAndGetOutput( XString::Format( "git -C %s rev-parse --abbrev-ref HEAD", dir.c_str() ) );
+    if( cmdOutput.EndsWith( '\n' ) )
+        cmdOutput = cmdOutput.substr( 0, cmdOutput.length() - 1 );
+
+    printf("status: %s [%s]\n",dir.c_str(),cmdOutput.c_str());
     fflush(stdout);
 
     err = system( XString::Format( "git -C %s status --short", dir.c_str() ).c_str() );
@@ -139,7 +143,11 @@ void GITStatus( XRef<Config> cfg, const XSDK::XString& tag, const XString& confi
         {
             XString dir = GetDirectoryFromURL( i->src );
 
-            printf("status: %s\n",i->path.c_str());
+            cmdOutput = ExecAndGetOutput( XString::Format( "git -C %s rev-parse --abbrev-ref HEAD", dir.c_str() ) );
+            if( cmdOutput.EndsWith( '\n' ) )
+                cmdOutput = cmdOutput.substr( 0, cmdOutput.length() - 1 );
+
+            printf("status: %s [%s]\n",i->path.c_str(),cmdOutput.c_str());
             fflush(stdout);
 
             err = system( XString::Format( "git -C %s status --short", dir.c_str() ).c_str() );
@@ -180,28 +188,4 @@ void BuildySnapshot( XRef<Config> cfg, const XString& outputFilePath )
     cfg->SetAllComponents( components );
 
     cfg->Write( outputFilePath );
-}
-
-void GITCheckout( XRef<Config> cfg, const XString& tag )
-{
-#if 0
-    if( _UncommittedOrUnstashedChanges( cfg, tag ) )
-        X_THROW(("Cannot checkout with uncommited or unstashed changes."));
-
-    list<struct Component> components=(tag.length()>0) ? cfg->GetMatchingComponents(tag) : cfg->GetAllComponents();
-
-    int err = 0;
-    list<struct Component>::iterator i;
-    for( i = components.begin(); i != components.end(); i++ )
-    {
-        if( i->src.length() > 0 )
-        {
-            XString dir = GetDirectoryFromURL( i->src );
-
-//            err = system( XString::Format( "git -C %s checkout %s", dir.c_str(), rev ).c_str() );
-//            if( err < 0 )
-//                X_THROW(("Unable to execute git command."));
-        }
-    }
-#endif
 }
