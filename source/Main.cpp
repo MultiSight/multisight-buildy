@@ -28,6 +28,18 @@ void PrintHelp()
     printf("               ALL if no arg provided.\n");
     printf("    --build - cleanbuild script on each project matching tag, project name or\n");
     printf("              ALL if no arg provided.\n");
+    printf("    --snapshot - Create a buildy.json containing revision information for \n");
+    printf("                 reproducing a build.\n");
+    printf("    --config <config_file_name> - Use provided path to buildy.json instead of\n");
+    printf("                                  automatically finding it.\n");
+    printf("    --superclean - Deletes devel_artifacts and all components build\n");
+    printf("                   directories.\n");
+    printf("    --test - Executes unit tests. Applies to provided tag, project name or ALL\n");
+    printf("             if no arg provided.\n");
+    printf("    --checkout <branch> - Executes git checkout <branch> on all components. If\n");
+    printf("                          a component lacks a branch with that name, it will do\n");
+    printf("                          nothing.\n");
+
     exit(0);
 }
 
@@ -122,6 +134,10 @@ int main( int argc, char* argv[] )
         else if( CheckOption( options, "--test", arg ) )
         {
             Test( cfg, arg );
+        }
+        else if( CheckOption( options, "--checkout", arg ) )
+        {
+            GITCheckout( cfg, "", configDir, arg );
         }
         else PrintHelp();
     }
