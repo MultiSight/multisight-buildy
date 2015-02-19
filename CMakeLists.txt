@@ -42,4 +42,6 @@ if(CMAKE_SYSTEM MATCHES "Windows")
 
 elseif(CMAKE_SYSTEM MATCHES "Linux")
     install(FILES ${devel_artifacts_path}/lib/libXSDK.so DESTINATION buildy/libs)
+    install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/utils/ssh_cmd DESTINATION buildy)
+    install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/utils/scp_cmd DESTINATION buildy)
 endif()
