@@ -175,7 +175,14 @@ void GITCheckout( XRef<Config> cfg, const XString& tag, const XString& configDir
 
     XString dir = configDir;
 
-    XString cmdOutput = ExecAndGetOutput( XString::Format( "git -C %s checkout %s &> /dev/null", dir.c_str(), branchName.c_str() ) );
+    XString cmd;
+#ifdef IS_WINDOWS
+    cmd = XString::Format( "git -C %s checkout %s 2> nul", dir.c_str(), branchName.c_str() );
+#else
+    cmd = XString::Format( "git -C %s checkout %s &> /dev/null", dir.c_str(), branchName.c_str() );
+#endif
+
+    XString cmdOutput = ExecAndGetOutput( cmd );
 
     list<struct Component>::iterator i;
     for( i = components.begin(); i != components.end(); i++ )
@@ -184,7 +191,13 @@ void GITCheckout( XRef<Config> cfg, const XString& tag, const XString& configDir
         {
             XString dir = GetDirectoryFromURL( i->src );
 
-            cmdOutput = ExecAndGetOutput( XString::Format( "git -C %s checkout %s &> /dev/null", dir.c_str(), branchName.c_str() ) );
+#ifdef IS_WINDOWS
+            cmd = XString::Format( "git -C %s checkout %s 2> nul", dir.c_str(), branchName.c_str() );
+#else
+            cmd = XString::Format( "git -C %s checkout %s &> /dev/null", dir.c_str(), branchName.c_str() );
+#endif
+
+            cmdOutput = ExecAndGetOutput( cmd );
         }
     }
 }
