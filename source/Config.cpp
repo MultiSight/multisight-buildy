@@ -184,8 +184,9 @@ void Config::Write( const XString& path )
             if( !i->cleanbuildContents.length() )
                 X_THROW(("Snapshots require embedded build scripts."));
 
-            doc += XString::Format( "      \"cleanbuild_contents\": \"%s\"\n",
-                                    XString::Base64Encode( i->cleanbuildContents.c_str(), i->cleanbuildContents.length() ).c_str() );
+            doc += XString::Format( "      \"cleanbuild_contents\": \"%s\"%s\n",
+                                    XString::Base64Encode( i->cleanbuildContents.c_str(), i->cleanbuildContents.length() ).c_str(),
+                                    (i->cleantest.length() > 0)?",":"" );
 
             if( i->cleantest.length() > 0 )
                 doc += XString::Format( "      \"cleantest\": \"%s\",\n", i->cleantest.c_str() );
