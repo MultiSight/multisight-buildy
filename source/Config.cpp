@@ -189,7 +189,7 @@ void Config::Write( const XString& path )
                                     (i->cleantest.length() > 0)?",":"" );
 
             if( i->cleantest.length() > 0 )
-                doc += XString::Format( "      \"cleantest\": \"%s\",\n", i->cleantest.c_str() );
+                doc += XString::Format( "      \"cleantest\": \"%s\"\n", i->cleantest.c_str() );
 
             doc += XString::Format( "    }%s\n", (lastComponent) ? "" : "," );
         }
